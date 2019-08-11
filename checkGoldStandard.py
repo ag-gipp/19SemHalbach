@@ -146,7 +146,7 @@ def compare_files(input_file, gold_standard_file):
                         gs_dict[title] = formula.replace("\n", "")
                     else: #key already exists, because the formula spans multiple lines
                         gs_dict[title] += formula.replace("\n", "") #append formula to dict, since the formula spans multiple lines
-        file.close() file.write irgendwo?
+        file.close()
 
     #compare titles & formulae from the two dictionaries
     for gs_title, gs_formula in gs_dict.items():
@@ -196,17 +196,15 @@ def compare_files(input_file, gold_standard_file):
                 print(title + " has two different formulae:\n   " + '"' + different_formulae[title][0] + '"'  + " in Gold Standard,"+ "\n   " + '"' + different_formulae[title][1] + '"'  + " in input file.")
         print("")
     print("Number of titles with different formulae (excluding FP(where there is no defining formula, but one is returned)): " + str(len(different_formulae) - FP_FN))
-    #print(("Number of titles with similar formulae/same formula but other tag (excluding FP(where there is no defining formula, but one is returned)): " + str(len(similar_formulae))))
-    print("Number of FP+FN (where there is no defining formula, but one is returned): " + str(FP_FN)) #stimmt der Text??
+    print("Number of FP+FN (where there is no defining formula, but one is returned): " + str(FP_FN))
     print("Number of TP(similar formulae not included): " + str(TP))
     print("Number of similar formulae: " + str(len(similar_formulae)))
     print("Missing titles: ", missing_titles, "len=", len(missing_titles))
 
-    #wenn nichts falsch laueft:meldung ausgeben, dass alles perfekt war.
 
 if __name__ == '__main__':  # When the script is self run
     parser = argparse.ArgumentParser(description="Compares the titles and formulas in input_file with the Gold Standard file; \n The files should be build like this: \n\n <title>SomeWikipediaTitle</title>\\n SomeFormulaWithoutEnclosingMathTags\\n <title>SomeWikipediaTitle2</title>\\n SomeFormulaWithoutEnclosingMathTags2\n\n;     Note that the titles must include a dot(.) for every hyphen(-) or other strange character regex cannot properly deal with. Apostrophs(') are excluded from this and can be added as usual.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter) #aendern, dass alle Zeichen erkannt werden koennen!
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-f', '--filename', help='the input_file to compare against the Gold Standard file(specify with -g)',
         default='output.txt', dest='input_file')
     parser.add_argument('-g', '--goldstandard', help='the Gold Standard file to compare against',
@@ -214,8 +212,3 @@ if __name__ == '__main__':  # When the script is self run
     args = parser.parse_args()
 
     compare_files(args.input_file, args.gold_standard_file)
-
-#todo: formeln ueber mehrere Zeilen werden eventuell noch nicht in jedem Szenario richtig verglichen(klappt "<math>/n Formula \n <math>"?)!
-#s.o. bei FP:  #16 statt 18 wird angezeigt?!?!??!
-#different_formulae manuell ueberpruefen!!! - es wird teilweise die gleiche Formel angezeigt, nur anders aufgeschrieben!?! gibt es also TEILWEISE einen Unterschied zwischen Dump und html oder liegt das am alten Dump?
-#the last line()=formula) of input_file.txt cannot be an empty string(=no formula found), since it won't be read via "with open(filename) as file:" Solution:always add an empty line at the end of the file before reading it!
