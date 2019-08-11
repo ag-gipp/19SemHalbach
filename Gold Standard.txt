@@ -1,0 +1,200 @@
+Q907926
+
+Q7048497
+q=e^{-\frac{\pi K'}{K}}=e^{\frac{{\rm{i}}\pi\omega_2}{\omega_1}}=e^{{\rm{i}} \pi \tau}\, 
+Q1816932
+
+Q4923900
+p_{t+1}(\hat{x}) = \sum_{x} p(x)p_t(\hat{x}|x)
+Q3825524
+\pi \int _{a}^{b}R(x)^{2}\,dx
+Q7269450
+\phi : \hat{\mathbf Z} \to \operatorname{Gal}(K_s/K),
+Q2835831
+
+Q6268406
+z=\gamma+\delta \sinh^{-1} \left(\frac{x-\xi}{\lambda}\right)
+Q77313
+
+Q190899
+n^3 - (n-1)^3 = 3n(n-1)+1.\,
+Q604572
+\left[ \frac{1}{2m}(\boldsymbol{\sigma}\cdot(\mathbf{p} - q \mathbf{A}))^2 + q \phi \right] |\psi\rangle = i \hbar \frac{\partial}{\partial t} |\psi\rangle  
+Q2388902
+\frac{d\epsilon}{dt} = \frac{\sigma}{d^3} D_{gb} e^{-Q_\text{Coble}/RT},
+Q631222
+\frac{n_{i+1}n_e}{n_i} = \frac{2}{\lambda^{3}}\frac{g_{i+1}}{g_i}\exp\left[-\frac{(\epsilon_{i+1}-\epsilon_i)}{k_BT}\right]
+Q5527846
+s_q(x) = \begin{cases} 0 &amp; \text{if }  x &lt; -\nu  \\ \frac{1}{c(q)}E_{q^2}^{\frac{-q^2x^2}{[2]_q}}  &amp; \text{if } -\nu \leq x \leq \nu \\ 0 &amp; \mbox{if } x &gt;\nu. \end{cases} 
+Q3077625
+ \Psi = \Psi \big( X_1, \dots, X_i, Y_{i+1}, \dots Y_r \big) \, 
+Q4940113
+\vec{F}_{bolt} = P_{max} \cdot A_{internal}. 
+Q12346869
+\mathbf{v} = \frac{d\mathbf{x}}{dt} = g(t),
+Q5384725
+R_{n}={\frac {e^{2}}{4kT_{0}\,\Delta f}
+Q540129
+
+Q75794
+f_0 = {1 \over 2 \pi R_0}\sqrt{3 \gamma p_0 \over \rho}
+Q25342
+P =\frac{dW}{dt}
+Q3150682
+Q = C_\mathrm{th} \Delta T\,
+Q6696419
+P(i) = \frac{w_i}{\sum_j{w_j}}
+Q25038417
+ P = {m g h \over t} 
+Q1493952
+
+Q5519411
+{R} = {U \over I}
+Q1419948
+ \operatorname{Ei}(x)=-\int_{-x}^{\infty}\frac{e^{-t}}t\,dt.\,
+Q16981474
+A=T(V)/R
+Q7160160
+e_v = m_v g_v \delta r \ln \left ({S \over r} \right )
+Q336787
+F(x) = \sum^{\infty}_{n=0}f_nx^n
+Q3424036
+\frac{1}{T} = A + B \ln R + C (\ln R)^3,
+Q1053879
+P = C V^2 f
+Q1779479
+
+Q1428692
+V = \frac{k}{n} {R_h}^{2/3} \, S^{1/2}
+Q17096631
+\phi = {2 (n-1)s \over (D/2)^2},
+Q20706974
+m = \pi \frac{D}{d}.
+Q5186734
+\frac{1}{2} mv^2 = eV_{ion}
+Q17105180
+Q = C H_a^n
+Q5955459
+\sigma_h = \displaystyle\sum_{i=1}^n \rho_i g h_i
+Q7857491
+\operatorname{Var}(Y) = a[\operatorname{E}(Y)]^p,
+Q2780405
+(x^2 + y^2)^2 = ax^2y.
+Q7302397
+v = H_0 D\ 
+Q567383
+c = {r\over{1-(1+r)^{-N}}}P_0
+Q881473
+
+Q4402528
+\phi\left(x\right) = \sum^\infty_{n=0} \lambda^n \phi_n \left(x\right)
+Q1499538
+M^d=P\times L(R,Y) \,
+Q918398
+E=KV\left(1-\gamma ^{2}\right)=KV\sin ^{2}\theta
+Q5753111
+
+Q1065144
+
+Q1054475
+f(x) = a e^{- \frac{(x-b)^2 }{ 2 c^2} }
+Q2152569
+s^\delta(\lambda) = \sum_{n\le \lambda} \left(1-\frac{n}{\lambda}\right)^\delta s_n 
+Q230913
+\Gamma = V \left(\frac{dp}{de}\right)_V
+Q204819
+e^{i \pi} + 1 = 0
+Q5485355
+T_\mathrm{sol-air} = T_o + \frac{ (a \cdot I - \Delta Q_{ir})}{h_o}
+Q221425
+E = \frac s t
+Q2074917
+v_a=\frac{C_R m_b (u_b - u_a) + m_a u_a + m_b u_b} {m_a+m_b}
+Q3097928
+H=\int _{V}\mathbf {u} \cdot \left(\nabla \times \mathbf {u} \right)\,dV
+Q13424600
+V = Z I\,
+Q3044461
+
+Q12354166
+
+Q6497088
+
+Q7598325
+W = aL^b\!\,
+Q25313226
+c^2 d\tau^2 = c^2 dt^2 - d\sigma^2 \, ,
+Q1455717
+F = \frac{a^{2}}{L \lambda}
+Q4232155
+ds^2=\left(1-{r_s\over r}\right)dt^2-{dr^2\over 1-{r_s\over r}} - r^2\left(d\theta^2+\sin^2\theta d\phi^2\right) \;,
+Q2033951
+ PMI = (P_1*1) + (P_2*0.5) + (P_3*0) 
+Q2418717
+V_m(\lambda) = (1-x) V'(\lambda) + x V(\lambda)
+Q1144385
+
+Q12912288
+I = 4\pi{10^{-10}}L
+Q24906027
+\sum _{w\in A^{*}}c(w)w
+Q18378333
+\chi^{\lambda}_\rho = \sum_{T \in BST(\lambda,\rho)} (-1)^{ht(T)}
+Q1147161
+ S = \operatorname{tr}_g \operatorname{Ric}.
+Q15402047
+P(n)=\sum_{k=1}^n\gcd(k,n)
+Q1089578
+X_{k}=\sum _{i=1}^{S}g_{k}^{i}\cdot M_{i}
+Q1149185
+m = a_k n^k + a_{k-1} n^{k-1} + \cdots + a_0,
+Q5277083
+f(u)=F(z)+e
+Q21948731
+\mathbf {\hat {Y}} =\mathbf {W} _{2}\sigma (\mathbf {W} _{1}x)
+Q3505260
+
+Q5657840
+x\cdot v:=\chi_\lambda(x)v
+Q901009
+\nabla^2\psi = \frac{\partial^2\psi}{\partial x^2} + \frac{\partial^2\psi}{\partial y^2} + \frac{\partial^2\psi}{\partial z^2}  = -\frac{\rho_e}{\epsilon_r\epsilon_0}, 
+Q2755024
+
+Q658654
+T(s)=\gamma'(s)
+Q5419508
+\sum _{i}Z_{i}\in Div(X)
+Q7256544
+  \gamma =\frac{ \left( c_p \right)_{air} *  P }{ \lambda_v * MW_{ratio} } 
+Q1701125
+ p = \sum_k p_k X^k, \quad p_k\in \mathbb{F}
+Q2226962
+
+Q1304927
+V=\frac{2\pi r^2h}{3}\,.
+Q594135
+x=A\sin(at+\delta),\quad y=B\sin(bt),
+Q3705517
+n={\frac {A}{{4 \over 3}\pi R^{3}}}
+Q2520550
+\dot{x} = Ax + Bu
+Q2308311
+q_n = \sum_{i = 0}^n 2^{-a_i - 1}.
+Q3085841
+D = \frac{2|E|}{|V|\,(|V|-1)}
+Q1050272
+z = {x- \mu \over \sigma}
+Q16963694
+ A(x) = \sum_{i=1}^n p_i E_{l_i}(x)
+Q5927001
+I(R) = \frac{I_0}{(1+R/R_H)^2}
+Q900855
+ D = \mu \, k_{\rm B} T 
+Q4697635
+ v = {V / \Delta t \over {A}} 
+Q2345603
+
+Q253164
+H = \frac{f^2}{N c} + f
+Q623738
+c_{\rm v} = \frac{\sigma}{\mu}.
