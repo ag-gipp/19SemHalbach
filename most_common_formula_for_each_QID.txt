@@ -1,0 +1,210 @@
+Q204819 5
+\cos \pi = -1  \, \! 
+Q2345603 2
+\psi^{-4}= \psi -1
+Q4923900 1
+p_{t+1}(\hat{x}|x) = \frac{p_t(\hat{x}) \exp(-\beta d(x,\hat{x}))}{\sum_{\hat{x}} p_t(\hat{x}) \exp(-\beta d(x,\hat{x}))}
+Q21948731 4
+\mathbf{W}_2 = \sigma(\mathbf{W}_1 \mathbf{X})^+ \mathbf{Y}
+Q7048497 2
+q
+
+Q631222 5
+\frac{Z_i}{N_i} = \frac{Z_{i+1}Z_e}{N_{i+1}N_e}
+Q2520550 5
+\dot{x} = Ax + Bu
+Q18378333 1
+\chi^{(2)}_{(1,1)}=\chi^{(1)}_{(1)}
+Q1428692 2
+V = \frac{k}{n} {R_h}^{2/3} \, S^{1/2}
+Q13424600 1
+V = Z I\,
+Q190899 5
+n^3 - (n-1)^3 = 3n(n-1)+1.\,
+Q2074917 3
+v_a=\frac{C_R m_b (u_b - u_a) + m_a u_a + m_b u_b} {m_a+m_b}
+Q594135 4
+x=A\sin(at+\delta),\quad y=B\sin(bt),
+Q907926 6
+
+Q901009 3
+
+
+Q7302397 2
+v = H_0 D\ 
+Q3705517 2
+n = \frac{A}{{4\over 3} \pi (A^{1/3}R_0)^3} = \frac{3}{4 \pi (1.25\ \mathrm{fm})^3} = 0.122 \ (\mathrm{fm})^{-3} = 1.22 \cdot 10^{44} \ \mathrm{m}^{-3}
+Q3424036 4
+\begin{align}
+\end{align}
+Q1054475 3
+f(x) = a e^{- { \frac{(x-b)^2 }{ 2 c^2} } }
+Q221425 11
+
+Q2418717 8
+
+Q604572 6
+
+
+Q3825524 1
+R_\mathrm{O}(x)^2 - R_\mathrm{I}(x)^2 \not\equiv \left(R_\mathrm{O}(x) - R_\mathrm{I}(x)\right)^2
+Q2755024 5
+ y = a e^{b x}U \,\!
+Q1493952 2
+f^*=g^*: H^j(Y,A)\to H^j(X,A).
+Q7160160 2
+e_v = m_v g_v r \ln \left ({S \over r} \right )
+Q16981474 1
+A=S(V)
+Q7598325 1
+K = 100(W/L^3)\!\,
+Q1419948 6
+
+
+Q1053879 13
+
+Q3097928 3
+
+
+Q1050272 3
+z = {x- \mu \over \sigma}
+Q2033951 11
+
+Q25038417 1
+ P = {m g h \over t} 
+Q1147161 2
+S = g^{ab} (\Gamma^c_{ab,c} - \Gamma^c_{ac,b} + \Gamma^c_{ab}\Gamma^d_{cd} - \Gamma^d_{ac} \Gamma^c_{bd})
+Q540129 8
+
+Q1065144 5
+E=\Theta(V^2)
+Q5384725 1
+kT_0 = 4.00 \times 10^{-21}\,[Ws]
+Q623738 3
+
+Q4402528 2
+K_n\left(x,z\right) = \int\int\cdots\int K\left(x,y_1\right)K\left(y_1,y_2\right) \cdots K\left(y_{n-1}, z\right) dy_1 dy_2 \cdots dy_{n-1}
+Q3077625 1
+\mathrm{d} U_\text{ext} = - P \, \mathrm{d} V_\text{ext} + T \, \mathrm{d} S_\text{ext}
+Q881473 1
+ S(x,y)=\left( \frac{S_1+S_2}{2}, S_1-S_2 \right). 
+Q25342 6
+
+
+Q7857491 1
+\operatorname{var}(Y) = a\mu^p,
+Q2388902 1
+\Delta C = C_0 \frac{\sigma\Omega}{kT}
+Q567383 1
+r=6.5/100/12
+Q1304927 2
+A=2\pi rh\,.
+Q7256544 1
+   \gamma = 
+Q75794 5
+
+Q6268406 2
+z=\gamma+\delta \sinh^{-1} \left(\frac{x-\xi}{\lambda}\right)
+Q3085841 4
+D = \frac{2|E|}{|V|\,(|V|-1)}
+Q5753111 1
+\gamma=1+\frac{\ln M}{\ln (M-1)} 
+Q230913 1
+p = p_0 \cdot \left( 1 - \Gamma \cdot \eta \right) + \frac{\rho_0 \cdot C^2_0 \cdot \eta}{\left( 1 - s \cdot \eta \right)^2} \cdot \left( 1 - \frac{\Gamma \cdot \eta}{2} \right) + \Gamma \cdot \rho_0 \cdot \left( e - e_0 \right)
+Q1149185 5
+ \mathcal{G}(n) = H_{R_2^\omega(n+1)}(1) - 1, 
+Q253164 3
+
+Q5277083 1
+x=\log (z)
+Q5519411 1
+ I = \frac{U}{R_x + R_{load}} 
+Q5419508 1
+
+Q3044461 4
+
+
+Q5657840 1
+\chi_\lambda=\chi_\mu
+Q3505260 2
+\phi=\frac{1+\sqrt 5}{2}
+Q20706974 1
+m = \pi \frac{D}{d}.
+Q25313226 1
+\textstyle r(t,\rho) = \sqrt{(1 + a^2) \rho^2 + a^2 c^2 t^2}
+Q1089578 2
+e_i=[0 ... 0 1 0 ... 0]
+Q24906027 1
+ S^* = \sum_{n \ge 0} S^n 
+Q7269450 2
+K_n = \mathbf C((T^{1/n}))
+Q336787 5
+
+Q4697635 2
+ v = {V / \Delta t \over {A}} 
+Q5527846 1
+ E_q^{x}=\sum_{j=0}^{\infty}q^{j(j-1)/2}\frac{x^{j}}{[j]!}
+Q5485355 2
+\frac{q}{A} = h_o(T_o - T_s)
+Q4940113 1
+Area = \pi r^2 \approx 3{.}1416 \cdot r^2. 
+Q12346869 1
+\mathbf{v} = \frac{d\mathbf{x}}{dt} = g(t),
+Q658654 5
+
+Q2780405 1
+(x^2 + y^2)^2 = ax^2y.\,
+Q77313 10
+
+Q2226962 3
+f(z) = \frac{1}{g(z)} + b
+Q900855 3
+ D = \mu \, k_B T 
+Q1144385 8
+
+Q17096631 1
+\phi_2={(1.7-1) \over -0.0747\ \mathrm{m}}=-9.37\ \mathrm{dpt}
+Q5186734 1
+r_{i} = E_g = \frac{k M m}{eV_{ion}} = 6.9\cdot 10^{-20}M \frac{m'}{V_{ion}} = 13.5\cdot 10^{13} \frac{m'}{V_{ion}} cm
+Q1816932 3
+ I_R \le RM_R\int_0^\pi e^{-aR\sin\theta}\,d\theta = 2RM_R\int_0^{\pi/2} e^{-aR\sin\theta}\,d\theta\,.
+Q16963694 2
+ A(x) = \sum_{i=1}^n p_i E_{l_i}(x)
+Q1779479 2
+ y(t) = y(t_0) + \int_{t_0}^t f(\tau, y(\tau)) \,\textrm{d}\tau, \, 
+Q12354166 2
+ E_F^n=m_n c^2 \,
+Q17105180 1
+y_1 + \frac{\left(\frac{Q}{b_1}\right)^2}{2gy_1^2} = \frac{3}{2}y_c
+Q1455717 4
+F = \frac{a^{2}}{L \lambda}
+Q2308311 1
+x_A=\sum_{k\in A}2^{-k}.
+Q3150682 3
+
+Q12912288 3
+
+Q6696419 1
+P(i) = \frac{w_i}{\sum_j{w_j}}
+Q918398 4
+
+Q2835831 3
+m = \sum_{i=1}^n a_i
+Q6497088 1
+\Gamma = G \cap \mathrm{GL}_n(\mathbb Z)
+Q5927001 2
+I(R) = \frac{I_0}{(1+R/R_H)^2}
+Q1499538 5
+
+Q4232155 2
+\rho-\tau=0
+Q1701125 3
+\left(\sum_i a_iX^i\right) + \left(\sum_i b_iX^i\right) = 
+\sum_i (a_i+b_i)X^i
+Q5955459 1
+\sigma_{h,sand} = \rho_w g h_w =1000 \,\text{kg/m}^3 \cdot 9.8 \,\text{m/s}^2 \cdot 10 \,\text{m} =9.8 \cdot {10^4} {kg/ms^2} =9.8 \cdot 10^4 {N/m^2}\!,
+Q15402047 2
+P(n)=\sum_{k=1}^n\gcd(k,n)
+Q2152569 4
+ 
+
