@@ -115,9 +115,10 @@ def get_QID_and_lang_to_title(QIDs, languages=[]):
         html = html_as_bytes.decode("utf8") #type: str
 
         #for documentation purposes
-        file = open("get_QID_and_lang_to_title " + QID, "w")
-        file.write(html)
-        file.close()
+        '''if not os.path.isfile("get_QID_and_lang_to_title " + QID + ".txt"): #since get_QID_and_lang_to_title() gets called twice
+            file = open("get_QID_and_lang_to_title " + QID + ".txt", "w")
+            file.write(html_as_bytes)
+            file.close()'''
 
         return html
 
@@ -179,7 +180,7 @@ def get_ifiles_and_lang(args_file, args_dir):
     '''Uses user input(input files and output directory) to determine which bz2-files to process
     - already processed bz2-files(=those found in the output directory) will be skipped.
     If no input files are specified, every bz2-file in the current directory will be used as input file.
-    The input files need to begin with the language code followed by "wiki" -> "enwiki", "dewiki",...
+    The input files need to begin with the language code followed by "wiki" -> "enwiki", "dewiki",... !
     Returns a list of the input files together with a list of the language codes.
     '''
 
@@ -210,7 +211,7 @@ def get_ifiles_and_lang(args_file, args_dir):
     return bz2_files, languages
 
 def get_ofiles_and_lang(args_dir):
-    '''Uses all bz2-files in the given output directory to determine the result_files(already processed output files).
+    '''Uses all bz2-files in the given output directory to determine the result_files(=already processed output files).
     These are not necessarily the same as the input files in case we reuse already processed output files.
     Returns the result_files as well as result_languages(=language codes = beginning of the filename, followed by "wiki").'''
 
@@ -227,7 +228,7 @@ def get_ofiles_and_lang(args_dir):
 
 def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, args_verbosity_level):
     '''Checks which formulae occur how often for each article in all its languages (on a single site, a formula will be counted only once).
-    Returns formulae_dict - mapping each tuple (QID and most-common-formula) to number-of-occurences-of-formula.'''
+    Returns formulae_dict - mapping each tuple (QID and formula) to number-of-occurences-of-formula.'''
 
     formulae_dict = {} #mapping the tuple (QID, formula) to the number of occurrences across different sites
     tags = args_tags.split(',')
@@ -243,7 +244,7 @@ def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, 
                 current_QID = None
                 current_tag = None
                 current_formula = ""
-                formulae_found = [] #lists all formulae for the current title => every formula will only be counted once per page (this does currently not take similar formulae into account!->use e.g. formulae_are_similar()!)
+                formulae_found = [] #lists all formulae for the current title => every formula will only be counted once per page (this does currently not take similar formulae into account!->change program to use e.g. formulae_are_similar()!)
 
                 #get QID of found title
                 for (QID, lang), title in QID_and_lang_to_title.items():
@@ -251,7 +252,7 @@ def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, 
                         current_QID = QID
                         found_QIDs.append(QID)
                         if args_verbosity_level > 1:
-                            print("Found title: ", QID, lang, title)
+                            print("Found title for formula_dict: ", QID, lang, title)
 
             elif line == "\n": #no formula was found in the Wikipedia article, because there either is no defining formula or it did not have a formula_indicator
                 #add empty formula to dict
@@ -267,7 +268,7 @@ def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, 
                 for tag in tags:
                     #a) formula ends in current line
                     if (current_tag != None) and (tag == current_tag):
-                        if (line.find("<"+tag+">") == -1) and (line.find("</"+tag.split(" ")[0]+">") != -1):#deals with <math chem> being closed as </math>
+                        if (line.find("<"+tag+">") == -1) and (line.find("</"+tag.split(" ")[0]+">") != -1):#split() deals with <math chem> being closed as </math>
                             current_formula += line[  :  line.find("</"+tag.split(" ")[0]+">")]
                             #add formula to dict
                             if current_formula not in formulae_found: #every formula will only be counted once per page
@@ -322,7 +323,7 @@ def extract_titles_and_formulae(filename, splitsize, dir, tags, keywords):
     ''' The function gets the filename of the xml.bz2-file as input
     and returns every formula of each page that has a title(=keyword) '''
 
-    formulae_indicators = ['=', '<', '>', '\leq', '\geq', '\approx', '\equiv']#todo: consider adding more!  #todo:if no formula_indicator is found, choose first "formula"(that is longer than a few characters, so it won't be just a variable)!
+    formulae_indicators = ['=', '<', '>', '\leq', '\geq', '\approx', '\equiv']#todo: consider adding more!  #todo: if no formula_indicator is found, choose first "formula"(that is longer than a few characters, so it won't be just a variable)!
     titles_found = [] #to check for missed titles
 
     if tags != '':
@@ -354,7 +355,7 @@ def extract_titles_and_formulae(filename, splitsize, dir, tags, keywords):
     # and the rest
     for line in bzfile:
         try:
-            line = line.decode("utf8") #probably faster to use python3 and specify encoding=utf8 in bz2.open()!  the bz2 module in python3 also supports multistreaming :)
+            line = line.decode("utf8") #probably faster to use python3 and specify encoding=utf8 in bz2.open()!  the bz2 module in python3 also supports multistreaming :)     Also see https://pymotw.com/3/bz2/
         except Exception as e:
             print(e)
             print("   decoding-ERROR! This shouldn't happen as the dump is supposed to be UTF-8 encoded. The error is in line:")
@@ -486,6 +487,182 @@ def extract_titles_and_formulae(filename, splitsize, dir, tags, keywords):
                     except Exception as e:
                         print(e)
 
+def formulae_are_similar(gs_formula, i_formula):
+    '''Returns true if formulae are the same after deleting every space characters(e.g. whitespaces, Latex-specifix space commands like "\," or "\!" and commas at the end of the formula) and ignoring different notations for single indices(=with and without curly brackets)
+    Reason: Formulae from Dump and from Wikidata Query differ slightly (and both also differ from the Wikipedia html source code).
+    Problems: Does not yet delete more Latex-specific spaces as well as Latex-specific commands like "\rm", '''
+
+    #todo: delete Latex-specific commands like "\rm" in the following code line. these might appear as part of the index => "k_{\rm B}" -> "k_{\rm {B}}" (part of the formula of "Einstein relation (kinetic theory)" in the html-Code) does not work properly yet!
+
+    #todo: delete "\n"
+
+    #todo: two formulae "A=B=C" and "A=C" should probably be considered as being similar
+
+
+    #delete Latex-spaces "\," and "\;" and "\!" and "\ ", they sometimes occur at the end before a comma in the Dump, but not in the html-code/GoldStandard            #test if more Latex-spaces from https://www.latex-kurs.de/kurse/Extra/Abstaende_in_Latex.pdf occur in formulae!
+    gs_formula = re.sub(r"\\,", "", gs_formula)
+    i_formula = re.sub(r"\\,", "", i_formula)
+    gs_formula = re.sub(r"\\;", "", gs_formula)
+    i_formula = re.sub(r"\\;", "", i_formula)
+    gs_formula = re.sub(r"\\!", "", gs_formula)
+    i_formula = re.sub(r"\\!", "", i_formula)
+    gs_formula = re.sub(r"\\ ", "", gs_formula) #lookbehind to make sure we don't have a linebreak; counting the number of backslashes would be better to account for multiple linebreaks though!
+    i_formula = re.sub(r"\\ ", "", i_formula)
+
+    #ignore different notations for single indices, which can be written in two notations in Latex: "_i" or "_{i}" or "_\alpha" or "_{\alpha}"
+    gs_formula = re.sub(r'([_^])(\\[a-zA-Z]+?)(\W)', r'\g<1>{\g<2>}\g<3>', gs_formula)
+    gs_formula = re.sub(r'([_^])(\w)', r'\g<1>{\g<2>}', gs_formula)
+    i_formula = re.sub(r'([_^])(\\[a-zA-Z]+?)(\W)', r'\g<1>{\g<2>}\g<3>', i_formula)
+    i_formula = re.sub(r'([_^])(\w)', r'\g<1>{\g<2>}', i_formula)
+
+    #delete comma (seen in the Dump) & dot (seen in the Dump) & semicolon at end
+    gs_formula = re.sub(";$", "", gs_formula)
+    gs_formula = re.sub(",$", "", gs_formula)
+    gs_formula = re.sub("\.$", "", gs_formula)
+    i_formula = re.sub(";$", "", i_formula)
+    i_formula = re.sub(",$", "", i_formula)
+    i_formula = re.sub("\.$", "", i_formula)
+
+    #delete unnecessary single backslash at the end (seen in html code)
+    gs_formula = re.sub(r"(\\\\)+\\$", "\g<1>", gs_formula) #delete single backslash, in case there are linebreaks before it
+    gs_formula = re.sub(r"(?<=[^\\])\\$", "", gs_formula)   #delete single backslash without linebreak before it/that's not part of a linebreak
+    i_formula = re.sub(r"(\\\\)+\\$", "\g<1>", i_formula)
+    i_formula = re.sub(r"(?<=[^\\])\\$", "", i_formula)
+
+    #delete whitespaces
+    gs_formula = "".join(gs_formula.split()) #deletes all whitespaces(' \t\n\r\v\f'); this doesn't include e.g. "\t" from "\theta" as intended, since we have the raw formulae strings as input
+    i_formula  = "".join(i_formula.split())
+
+
+    #check if formulae are now equal and thus were similar at the beginning
+    if gs_formula == i_formula:
+        return True
+    else:
+        return False
+
+def compare_files(input_file, gold_standard_file):
+    '''Compares titles(or QIDs) & formulae from the two input files. Prints formulae from gold_standard_file that are missing in input_file.
+    Also prints all formulae (that share the same title) that are different in the two files, if "-v" is used.
+    Supports file-formats bz2 and txt.'''
+
+    num_of_titles = {}
+    num_of_titles[input_file] = 0
+    num_of_titles[gold_standard_file] = 0
+    TP = 0
+    FP = 0
+    FN = 0
+    TN = 0
+
+    missing_titles = []
+    different_formulae = {} #maps titles to correct(Gold Standard) & wrong(input_file) formulae
+    similar_formulae = {} #maps titles to correct(Gold Standard) & similar-but-not-exactly-the-same(input_file) formulae
+    gs_dict = {} #maps titles to formulae from gold_standard_file
+    i_dict = {} #maps titles to formulae from input_file
+
+    #add title and formula to dict
+    for filename in [input_file, gold_standard_file]:
+        #open files depending on file-format
+        file = None
+        if filename.split(".")[-1] == "bz2":
+            file = bz2.BZ2File(filename, 'r')
+        else:
+            file = open(filename, "r")
+
+        #check if file contains titles or QIDs -> know which regex to search for
+        file_contains_titles = False
+        for line in file:
+            if "<title>" in line:
+                file_contains_titles = True
+                break
+
+        #reset file pointer to read file again
+        file.seek(0)
+
+        title = ""
+        formula = ""
+        for line in file:
+            if (file_contains_titles == True) and ("<title>" in line): #line contains either  "<title>ABC</title>"  or   "<title>ABC"
+                #delete empty spaces as well as "<title>" at the beginning of the line if it occurs
+                if re.search(r'<title>(.*)', line) != None:
+                    title = re.search(r'[\ ]*<title>[\ ]*(.*)', line).group(1)
+                #delete empty spaces as well as "</title>" at the end of the line if it occurs
+                if re.search(r'(.*)</title>', title) != None:
+                    title = re.search(r'(.*)[\ ]*</title>[\ ]*', title).group(1)
+                num_of_titles[filename] += 1
+            elif (file_contains_titles == False) and (re.search(r'^Q[1-9][0-9]*[\ ]*[0-9]*[\ ]*$', line) != None): #line contains QID, e.g. Q1234
+                title = re.search(r'^(Q[1-9][0-9]*)[\ ]*[0-9]*[\ ]*$', line).group(1)
+            else: #line with formula
+                formula = line
+                #add title & formula to respective dict
+                if filename == input_file:
+                    if i_dict.get(title) == None: #key not found
+                        i_dict[title] = formula.replace("\n", "")
+                    else:
+                        i_dict[title] += formula.replace("\n", "") #append formula to dict, since the formula spans multiple lines
+                else: #filename == gold_standard_file
+                    if gs_dict.get(title) == None: #key not found
+                        gs_dict[title] = formula.replace("\n", "")
+                    else: #key already exists, because the formula spans multiple lines
+                        gs_dict[title] += formula.replace("\n", "") #append formula to dict, since the formula spans multiple lines
+        file.close()
+
+    #compare titles & formulae from the two dictionaries
+    for gs_title, gs_formula in gs_dict.items():
+        num_of_title_matches = 0 #to search for missing titles in i_file, possibly due to strange characters in the title => they weren't found by wikiFilter.py or find_formula.py
+        for i_title, i_formula in i_dict.items():
+            if (gs_title == i_title):# or titles_are_similar(gs_formula, i_formula):
+                num_of_title_matches += 1
+                if num_of_title_matches == 1:
+                    if gs_formula == i_formula:
+                        if gs_formula == "":
+                            TN += 1
+                        else:
+                            TP += 1
+                    elif formulae_are_similar(gs_formula, i_formula):
+                        similar_formulae[gs_title] = [gs_formula, i_formula]
+                    else:
+                        different_formulae[gs_title] = [gs_formula, i_formula]
+                elif num_of_title_matches > 1:
+                    print("ERROR! Title appeared more than once in input_file: ", gs_title)
+
+        if num_of_title_matches == 0:
+            missing_titles.append(gs_title)
+
+    #error handling
+    if num_of_titles[gold_standard_file] - num_of_titles[input_file] < len(missing_titles):
+        print("ERROR! Number of found titles doesn't match. Some of the titles of input_file don't match with those from gold_standard_file, probably because of special characters that have been changed for regex search( '-' to '.' etc) or because the the wikipedia titles changed. It can also be that the last line(formula) of input_file.txt is empty(=no formula found) - in that case add another empty line at the end! This needs to be fixed manually in the gold_standard_file. \n Another (unlikely) cause might be a duplicated title in the input_file. \n It could also be that you mixed up the input file with the gold standard file.")
+        print("num_of_titles[gold_standard_file]", num_of_titles[gold_standard_file])
+        print("num_of_titles[input_file]", num_of_titles[input_file])
+        print("len(missing_titles)", len(missing_titles))
+    elif num_of_titles[gold_standard_file] - num_of_titles[input_file] > len(missing_titles):
+        print("ERROR! Number of found titles doesn't match at all. This shouldn't have happened.")
+        print("num_of_titles[gold_standard_file]", num_of_titles[gold_standard_file])
+        print("num_of_titles[input_file]", num_of_titles[input_file])
+        print("len(missing_titles)", len(missing_titles))
+
+    #print results
+    if len(similar_formulae) != 0:
+        print("Similar formulae: ")
+        for title in similar_formulae.keys():
+            print("Title " + str(title) + " has similar formulae:")
+            print("   " + '"' + similar_formulae[title][0] + '"')
+            print("   " + '"' + similar_formulae[title][1] + '"')
+        print("")
+    if len(different_formulae) != 0:
+        for title in different_formulae.keys():
+            if (different_formulae[title][0] != "") and (different_formulae[title][1] == ""):
+                FN += 1
+            else: #there either is no defining formula or the wrong formula was found
+                FP += 1
+            if args.verbosity_level > 1:
+                print(title + " has two different formulae:\n   " + '"' + different_formulae[title][0] + '"'  + " in Gold Standard,"+ "\n   " + '"' + different_formulae[title][1] + '"'  + " in input file.")
+        print("")
+    print("Number of titles with different formulae (FP+FN) = " + str(FP+FN) + ", FP = " + str(FP) + ", FN = " + str(FN))
+    print("Number of TP(similar formulae not included) = " + str(TP))
+    print("Number of similar formulae = " + str(len(similar_formulae)))
+    print("Number of TN = " + str(TN))
+    print(str(len(missing_titles)) + " missing titles: " + str(missing_titles))
+
 if __name__ == '__main__':  # When the script is self run
     parser = argparse.ArgumentParser(description='Extract all formulae (defined as having a formula_indicator) from the wikipages that contain the titles corresponding to the given QIDs(loaded via "-Q"), in all specified languages(corresponding to the beginning of the bz2-filenames, e.g. "enwiki....bz2"). Afterwards extracts the most common formula for a wikipedia page (in all languages specified). Formulae occuring multiple times for a wikipedia page(in a single language) are counted only once!',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -546,8 +723,8 @@ if __name__ == '__main__':  # When the script is self run
             print("\n")
 
 
-    #check which formulae occur how often for each QID (on a single wikipage, a formula will be counted only once)
-    formulae_dict = get_formulae_dict(QID_and_lang_to_title, result_files, args.tags, args.dir)
+    #check which formula occurs how often for each QID (on a single wikipage, a formula will be counted only once)
+    formulae_dict = get_formulae_dict(QID_and_lang_to_title, result_files, args.tags, args.dir, args.verbosity_level)
     if args.verbosity_level > 1:
         print("\nAll formulae (QID, formula, #occurences):")
         print(formulae_dict)
@@ -557,10 +734,21 @@ if __name__ == '__main__':  # When the script is self run
     print("Now checking for most common formula...")
     most_common_formula_for_QID = {} #mappes QIDs to (formula, num_of_occ), where num_of_occ is the number of occurrences for the formula that occurrs the most
     for (QID, formula), occ in formulae_dict.items():
-        if most_common_formula_for_QID.get(QID) == None: #first formula for this QID will always be added
+        if most_common_formula_for_QID.get(QID) == None: #first formula for a QID will always be added
             most_common_formula_for_QID[QID] = (formula, occ)
         elif most_common_formula_for_QID[QID][1] < occ: #found a formula that occurrs more often
             most_common_formula_for_QID[QID] = (formula, occ)
     if args.verbosity_level > 0:
         print("Most common formulae (QID, formula, #occurences):")
         print(most_common_formula_for_QID)
+
+    #print "QID formula occ" to txt-file
+    with open("results.txt", "w") as file:
+        output_string = ""
+        for QID in most_common_formula_for_QID.keys():
+            output_string += QID + " " + str(most_common_formula_for_QID[QID][1]) + "\n"
+            output_string += most_common_formula_for_QID[QID][0] + "\n"
+        file.write(output_string)
+
+    #evaluate results for TP, FP, FN, TN
+    compare_files("results.txt", args.QID_file)
