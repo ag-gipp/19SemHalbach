@@ -33,7 +33,8 @@ def levenshtein(seq1, seq2): #otherwise install & import the Levenshtein-module
     return (matrix[size_x - 1, size_y - 1])
 
 def titles_are_similar(gs_title, i_title):
-    '''Returns true, if Levenshtein-distance is at most 1 and the title-names only differ by whitespaces and different dashes(hypen, en dash, em dash).'''
+    '''Returns true, if Levenshtein-distance is at most 1.
+    In the future, title-names differing only by whitespaces and different dashes(hypen, en dash, em dash) shall not be counted towards the distance (todo!).'''
 
     ratio = levenshtein(gs_title, i_title) #check this for every type of dash!if only one ratio is <= 1, then return True
     if ratio <= 1:
@@ -43,7 +44,7 @@ def titles_are_similar(gs_title, i_title):
 
 def formulae_are_similar(gs_formula, i_formula):
     '''Returns true if formulae are the same after deleting every space characters(e.g. whitespaces, Latex-specifix space commands like "\," or "\!" and commas at the end of the formula) and ignoring different notations for single indices(=with and without curly brackets)
-    Reason: Formulae from Dump and from Wikidata Query differ slightly for some reason. (and both also differ from the Wikipedia html source code).
+    Reason: Formulae from Dump and from Wikidata Query differ slightly (and both also differ from the Wikipedia html source code).
     Problems: Does not yet delete more Latex-specific spaces as well as Latex-specific commands like "\rm", '''
 
     #todo: delete Latex-specific commands like "\rm" in the following code line. these might appear as part of the index => "k_{\rm B}" -> "k_{\rm {B}}" (part of the formula of "Einstein relation (kinetic theory)" in the html-Code) does not work properly yet!
@@ -95,17 +96,17 @@ def formulae_are_similar(gs_formula, i_formula):
         return False
 
 def compare_files(input_file, gold_standard_file):
-    '''Compares titles & formulae from the two input files. Prints formulae from gold_standard_file that are missing in input_file.
-    Also prints all formulae (that share the same title) that are different in the two files.
+    '''Compares titles(or QIDs) & formulae from the two input files. Prints formulae from gold_standard_file that are missing in input_file.
+    Also prints all formulae (that share the same title) that are different in the two files, if "-v" is used.
     Supports file-formats bz2 and txt.'''
-
-
 
     num_of_titles = {}
     num_of_titles[input_file] = 0
     num_of_titles[gold_standard_file] = 0
     TP = 0
-    FP_FN = 0
+    FP = 0
+    FN = 0
+    TN = 0
 
     missing_titles = []
     different_formulae = {} #maps titles to correct(Gold Standard) & wrong(input_file) formulae
@@ -122,10 +123,20 @@ def compare_files(input_file, gold_standard_file):
         else:
             file = open(filename, "r")
 
+        #check if file contains titles or QIDs -> know which regex to search for
+        file_contains_titles = False
+        for line in file:
+            if "<title>" in line:
+                file_contains_titles = True
+                break
+
+        #reset file pointer to read file again
+        file.seek(0)
+
         title = ""
         formula = ""
         for line in file:
-            if "<title>" in line: #line contains either  "<title>ABC</title>"  or   "<title>ABC"
+            if (file_contains_titles == True) and ("<title>" in line): #line contains either  "<title>ABC</title>"  or   "<title>ABC"
                 #delete empty spaces as well as "<title>" at the beginning of the line if it occurs
                 if re.search(r'<title>(.*)', line) != None:
                     title = re.search(r'[\ ]*<title>[\ ]*(.*)', line).group(1)
@@ -133,6 +144,8 @@ def compare_files(input_file, gold_standard_file):
                 if re.search(r'(.*)</title>', title) != None:
                     title = re.search(r'(.*)[\ ]*</title>[\ ]*', title).group(1)
                 num_of_titles[filename] += 1
+            elif (file_contains_titles == False) and (re.search(r'^Q[1-9][0-9]*[\ ]*[0-9]*[\ ]*$', line) != None): #line contains QID, e.g. Q1234
+                title = re.search(r'^(Q[1-9][0-9]*)[\ ]*[0-9]*[\ ]*$', line).group(1)
             else: #line with formula
                 formula = line
                 #add title & formula to respective dict
@@ -156,7 +169,10 @@ def compare_files(input_file, gold_standard_file):
                 num_of_title_matches += 1
                 if num_of_title_matches == 1:
                     if gs_formula == i_formula:
-                        TP += 1
+                        if gs_formula == "":
+                            TN += 1
+                        else:
+                            TP += 1
                     elif formulae_are_similar(gs_formula, i_formula):
                         similar_formulae[gs_title] = [gs_formula, i_formula]
                     else:
@@ -189,17 +205,18 @@ def compare_files(input_file, gold_standard_file):
         print("")
     if len(different_formulae) != 0:
         for title in different_formulae.keys():
-            if different_formulae[title][0] == "":
-                if different_formulae[title][1] != "":
-                    FP_FN += 1
-            else:
+            if (different_formulae[title][0] != "") and (different_formulae[title][1] == ""):
+                FN += 1
+            else: #there either is no defining formula or the wrong formula was found
+                FP += 1
+            if args.verbosity_level > 1:
                 print(title + " has two different formulae:\n   " + '"' + different_formulae[title][0] + '"'  + " in Gold Standard,"+ "\n   " + '"' + different_formulae[title][1] + '"'  + " in input file.")
         print("")
-    print("Number of titles with different formulae (excluding FP(where there is no defining formula, but one is returned)): " + str(len(different_formulae) - FP_FN))
-    print("Number of FP+FN (where there is no defining formula, but one is returned): " + str(FP_FN))
-    print("Number of TP(similar formulae not included): " + str(TP))
-    print("Number of similar formulae: " + str(len(similar_formulae)))
-    print("Missing titles: ", missing_titles, "len=", len(missing_titles))
+    print("Number of titles with different formulae (FP+FN) = " + str(FP+FN) + ", FP = " + str(FP) + ", FN = " + str(FN))
+    print("Number of TP(similar formulae not included) = " + str(TP))
+    print("Number of similar formulae = " + str(len(similar_formulae)))
+    print("Number of TN = " + str(TN))
+    print(str(len(missing_titles)) + " missing titles: " + str(missing_titles))
 
 
 if __name__ == '__main__':  # When the script is self run
