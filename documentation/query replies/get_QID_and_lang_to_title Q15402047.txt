@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q15402047"><sitelinks><sitelink site="enwiki" title="Pillai&#039;s arithmetical function"><badges /></sitelink><sitelink site="svwiki" title="Pillais aritmetiska funktion"><badges /></sitelink></sitelinks></entity></entities></api>

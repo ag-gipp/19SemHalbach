@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q16981474"><sitelinks><sitelink site="enwiki" title="Koszul duality"><badges /></sitelink><sitelink site="kowiki" title="코쥘 쌍대성"><badges /></sitelink></sitelinks></entity></entities></api>

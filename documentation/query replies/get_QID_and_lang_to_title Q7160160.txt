@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q7160160"><sitelinks><sitelink site="enwiki" title="Peek&#039;s law"><badges /></sitelink><sitelink site="zhwiki" title="皮克定律"><badges /></sitelink></sitelinks></entity></entities></api>

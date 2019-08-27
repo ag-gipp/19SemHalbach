@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q6497088"><sitelinks><sitelink site="enwiki" title="Lattice (discrete subgroup)"><badges /></sitelink><sitelink site="frwiki" title="Réseau (sous-groupe discret)"><badges /></sitelink><sitelink site="jawiki" title="局所コンパクト群における格子"><badges /></sitelink></sitelinks></entity></entities></api>

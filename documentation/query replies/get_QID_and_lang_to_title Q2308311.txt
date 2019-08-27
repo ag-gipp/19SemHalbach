@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q2308311"><sitelinks><sitelink site="dewiki" title="Specker-Folge"><badges /></sitelink><sitelink site="enwiki" title="Specker sequence"><badges /></sitelink><sitelink site="frwiki" title="Suite de Specker"><badges /></sitelink></sitelinks></entity></entities></api>

@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q7048497"><sitelinks><sitelink site="enwiki" title="Nome (mathematics)"><badges /></sitelink><sitelink site="jawiki" title="ノーム (数学)"><badges /></sitelink><sitelink site="kowiki" title="놈 (수학)"><badges /></sitelink></sitelinks></entity></entities></api>

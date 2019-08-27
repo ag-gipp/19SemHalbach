@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q5527846"><sitelinks><sitelink site="enwiki" title="Gaussian q-distribution"><badges /></sitelink><sitelink site="ukwiki" title="Гауссовий q-розподіл"><badges /></sitelink></sitelinks></entity></entities></api>

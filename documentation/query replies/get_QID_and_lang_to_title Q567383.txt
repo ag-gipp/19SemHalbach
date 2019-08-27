@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q567383"><sitelinks><sitelink site="cswiki" title="Fixace"><badges /></sitelink><sitelink site="enwiki" title="Fixed-rate mortgage"><badges /></sitelink><sitelink site="nlwiki" title="Annuïteitenhypotheek"><badges /></sitelink></sitelinks></entity></entities></api>

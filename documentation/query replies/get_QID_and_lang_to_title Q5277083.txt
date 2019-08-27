@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q5277083"><sitelinks><sitelink site="enwiki" title="Dilution assay"><badges /></sitelink></sitelinks></entity></entities></api>

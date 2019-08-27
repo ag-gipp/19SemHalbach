@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q4940113"><sitelinks><sitelink site="enwiki" title="Bolt thrust"><badges /></sitelink><sitelink site="tawiki" title="ஆணித் தள்ளுகை"><badges /></sitelink></sitelinks></entity></entities></api>

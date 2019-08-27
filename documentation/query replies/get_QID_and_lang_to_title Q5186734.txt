@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q5186734"><sitelinks><sitelink site="arwiki" title="سرعة التأين الحرجة"><badges /></sitelink><sitelink site="enwiki" title="Critical ionization velocity"><badges /></sitelink></sitelinks></entity></entities></api>

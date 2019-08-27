@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q12346869"><sitelinks><sitelink site="arwiki" title="معادلة وينر"><badges /></sitelink><sitelink site="enwiki" title="Wiener equation"><badges /></sitelink><sitelink site="eowiki" title="Ekvacio de Wiener"><badges /></sitelink></sitelinks></entity></entities></api>

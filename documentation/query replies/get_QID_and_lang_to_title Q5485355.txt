@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q5485355"><sitelinks><sitelink site="enwiki" title="Sol-air temperature"><badges /></sitelink><sitelink site="eswiki" title="Temperatura sol-aire"><badges /></sitelink><sitelink site="scwiki" title="Temperadura Sol-air"><badges /></sitelink></sitelinks></entity></entities></api>

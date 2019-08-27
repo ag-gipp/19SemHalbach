@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q5927001"><sitelinks><sitelink site="arwiki" title="قانون هابل-رينولدز"><badges /></sitelink><sitelink site="enwiki" title="Hubble–Reynolds law"><badges /></sitelink><sitelink site="zhwiki" title="哈勃-雷诺兹定律"><badges /></sitelink></sitelinks></entity></entities></api>

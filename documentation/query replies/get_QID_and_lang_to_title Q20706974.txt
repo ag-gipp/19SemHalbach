@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q20706974"><sitelinks><sitelink site="enwiki" title="Crowther criterion"><badges /></sitelink></sitelinks></entity></entities></api>

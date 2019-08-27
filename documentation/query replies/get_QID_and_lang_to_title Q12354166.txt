@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q12354166"><sitelinks><sitelink site="enwiki" title="Nuclear drip line"><badges /></sitelink><sitelink site="frwiki" title="Limite de stabilité"><badges /></sitelink><sitelink site="zhwiki" title="原子核滴线"><badges /></sitelink></sitelinks></entity></entities></api>

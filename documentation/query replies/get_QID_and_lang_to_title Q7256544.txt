@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q7256544"><sitelinks><sitelink site="enwiki" title="Psychrometric constant"><badges /></sitelink><sitelink site="fiwiki" title="Psykrometrivakio"><badges /></sitelink><sitelink site="ukwiki" title="Психрометрична стала"><badges /></sitelink></sitelinks></entity></entities></api>

@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q25038417"><sitelinks><sitelink site="enwiki" title="Margaria-Kalamen power test"><badges /></sitelink></sitelinks></entity></entities></api>

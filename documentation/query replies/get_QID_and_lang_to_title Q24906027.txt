@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q24906027"><sitelinks><sitelink site="enwiki" title="Rational series"><badges /></sitelink></sitelinks></entity></entities></api>

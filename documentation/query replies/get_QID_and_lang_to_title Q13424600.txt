@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q13424600"><sitelinks><sitelink site="enwiki" title="Impedance parameters"><badges /></sitelink><sitelink site="ruwiki" title="Матрица сопротивлений"><badges /></sitelink></sitelinks></entity></entities></api>

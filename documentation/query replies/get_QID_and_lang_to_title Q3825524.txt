@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q3825524"><sitelinks><sitelink site="arwiki" title="تكامل بالأقراص"><badges /></sitelink><sitelink site="cawiki" title="Integració per discs"><badges /></sitelink><sitelink site="enwiki" title="Disc integration"><badges /></sitelink></sitelinks></entity></entities></api>

@@ -1,0 +1,1 @@
+<?xml version="1.0"?><api success="1"><entities><entity type="item" id="Q4232155"><sitelinks><sitelink site="enwiki" title="Lemaître coordinates"><badges /></sitelink><sitelink site="frwiki" title="Métrique de Lemaître"><badges /></sitelink><sitelink site="ruwiki" title="Координаты Леметра"><badges /></sitelink></sitelinks></entity></entities></api>
