@@ -55,7 +55,7 @@ Q1419948
 Q16981474
 A=T(V)/R
 Q7160160
-e_v = m_v g_v \delta r \ln \left ({S \over r} \right )
+e_v = m_v g_v r \ln \left ({S \over r} \right )
 Q336787
 F(x) = \sum^{\infty}_{n=0}f_nx^n
 Q3424036
