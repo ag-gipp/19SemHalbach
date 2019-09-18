@@ -1,0 +1,15 @@
+language: python
+python:
+  - "2.7"
+
+script:
+  - ls
+  - ls ${TRAVIS_BUILD_DIR}
+  - cd "Dumps filtered for tags"
+  - mkdir "travis; filtered for 100 QIDs"
+  - python2.7 wikiFilter.py -f *wiki*.bz2 -d "filtered for 100 QIDs; travis" -v -Q ./../Gold\ Standard.txt -t "" 1>"extract100.txt" 2>"exceptions.txt"
+  - cd "filtered for 100 QIDs; travis"
+  - mv ./../../find_most_common_formula.py ./find_most_common_formula.py
+  - mkdir "filtered titles and formulae; travis"
+  - python2.7 find_most_common_formula.py -Q "./../../Gold Standard.txt" -vv -d "filtered titles and formulae; travis" 1>"terminal output.txt" 2>"exceptions.txt"
+  - cat "terminal output.txt" | grep "Number of titles with different formulae" -A 4 --color="never"
