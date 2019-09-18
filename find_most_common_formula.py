@@ -233,6 +233,8 @@ def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, 
     formulae_dict = {} #mapping the tuple (QID, formula) to the number of occurrences across different sites
     tags = args_tags.split(',')
 
+    current_formula = ""
+
     for f_name in result_files:
         language = f_name.split("wiki")[0]
         file = bz2.BZ2File(os.path.join(args_dir, f_name), 'r')
@@ -254,7 +256,7 @@ def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, 
                         if args_verbosity_level > 1:
                             print("Found title for formula_dict: ", QID, lang, title)
 
-            elif line == "\n": #no formula was found in the Wikipedia article, because there either is no defining formula or it did not have a formula_indicator
+            elif (line == "\n") and (current_formula == ""): #no formula was found in the Wikipedia article, because there either is no defining formula or it did not have a formula_indicator
                 #add empty formula to dict
                 current_formula = ""
                 if current_formula not in formulae_found: #delete this if-clause all 3 times in this function if you want to count a reoccurring formula on one page multiple times instead of once
@@ -282,29 +284,30 @@ def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, 
                             current_tag = None
                             break
 
-                for tag in tags:
-                    #b) formula completely contained inside the current line
-                    if (line.find("<"+tag+">") != -1) and (line.find("</"+tag+">") != -1):
-                        current_formula = line[line.find("<"+tag+">") + 2 + len(tag)   :    line.find("</"+tag+">")]
-                        #add formula to dict
-                        if current_formula not in formulae_found: #every formula will only be counted once per page
-                            formulae_found.append(current_formula)
-                            if formulae_dict.get((current_QID, current_formula)) == None: #formula didn't occur yet
-                                formulae_dict[(current_QID, current_formula)] = 1
-                            else:
-                                formulae_dict[(current_QID, current_formula)] += 1
+                else:
+                    for tag in tags:
+                        #b) formula completely contained inside the current line
+                        if (line.find("<"+tag+">") != -1) and (line.find("</"+tag+">") != -1):
+                            current_formula = line[line.find("<"+tag+">") + 2 + len(tag)   :    line.find("</"+tag+">")]
+                            #add formula to dict
+                            if current_formula not in formulae_found: #every formula will only be counted once per page
+                                formulae_found.append(current_formula)
+                                if formulae_dict.get((current_QID, current_formula)) == None: #formula didn't occur yet
+                                    formulae_dict[(current_QID, current_formula)] = 1
+                                else:
+                                    formulae_dict[(current_QID, current_formula)] += 1
 
-                        current_formula = ""
+                            current_formula = ""
 
-                    #c) formula starts in current line
-                    if line.rfind("<"+tag+">") > line.rfind("</"+tag+">"): #last opening tag after last closing tag
-                        current_formula = line[line.rfind("<"+tag+">") + 2 + len(tag)   : ]
-                        current_tag = tag
+                        #c) formula starts in current line
+                        elif line.rfind("<"+tag+">") > line.rfind("</"+tag+">"): #last opening tag after last closing tag
+                            current_formula = line[line.rfind("<"+tag+">") + 2 + len(tag)   : ]
+                            current_tag = tag
 
-                    #d) formula continues in current & next line
-                    if (current_tag != None) and (tag == current_tag):
-                        if (line.find("<"+current_tag+">") != -1) and (line.find("</"+current_tag+">") != -1):
-                            current_formula += line
+                        #d) formula continues in current & next line
+                        elif (current_tag != None) and (tag == current_tag):
+                            if (line.find("<"+current_tag+">") == -1) and (line.find("</"+current_tag+">") == -1):
+                                current_formula += line
 
         #choose "" as the formula for every non-found-title
         for (QID, lang), title in QID_and_lang_to_title.items():
