@@ -10,8 +10,9 @@ script:
   - mv ./../../find_most_common_formula.py ./find_most_common_formula.py
   - mkdir "filtered titles and formulae; travis-find_most_common_formula-check"
   - python2.7 find_most_common_formula.py -Q "./../../Gold Standard.txt" -vv -d "filtered titles and formulae; travis-find_most_common_formula-check" 1>"terminal output.txt" 2>"exceptions.txt"
-  - cat "terminal output.txt" | grep "Number of titles with different formulae" -A 4 --color="never"
-  - echo "The high number of missing titles is expected, since the English bz2-file (as well as some others) are too big for GitHub and thus not used. Including those bz2-files results in the following (older dumps might are used here!):"
+  - export GREP_COLOR='1;34'
+  - cat "terminal output.txt" | grep "Number of titles with different formulae" -A 4 | grep ".*" --color="always"
+  - echo "The high number of missing titles is expected, since the English bz2-file (as well as some others) are too big for GitHub and thus not used. Including those bz2-files results in the following (older dumps might be used here!):"
   - cd "filtered titles and formulae"
   - python2.7 find_most_common_formula.py -Q "./../../Gold Standard.txt" -vv -d "filtered titles and formulae" 1>"terminal output; all bz2-files.txt" 2>"exceptions.txt"
-  - cat "terminal output; travis-find_most_common_formula-check; all bz2-files.txt" | grep "Number of titles with different formulae" -A 4 --color="never"
+  - cat "terminal output; travis-find_most_common_formula-check; all bz2-files.txt" | grep "Number of titles with different formulae" -A 4 | grep ".*" --color="always"
