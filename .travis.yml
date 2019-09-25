@@ -13,6 +13,7 @@ script:
   - export GREP_COLOR='1;34'
   - cat "terminal output.txt" | grep "Number of titles with different formulae" -A 4 | grep ".*" --color="always"
   - echo "The high number of missing titles is expected, since the English bz2-file (as well as some others) are too big for GitHub and thus not used. Including those bz2-files results in the following (older dumps might be used here!):"
+  - cd "./../filtered for 100 QIDs"
   - mkdir "filtered titles and formulae; travis all bz2-files"
   - python2.7 find_most_common_formula.py -Q "./../../Gold Standard.txt" -vv -d "filtered titles and formulae; travis-using-all-bz2-files" 1>"terminal output; all bz2-files.txt" 2>"exceptions; all bz2-files.txt"
   - cat "terminal output; all bz2-files.txt" | grep "Number of titles with different formulae" -A 4 | grep ".*" --color="always"
