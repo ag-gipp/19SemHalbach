@@ -2,7 +2,6 @@ language: bash
 python: 2.7
 
 script:
-  - ls
   - cd "Dumps filtered for tags"
   - mkdir "filtered for 100 QIDs; travis-wikiFilter-check"
   - python2.7 wikiFilter.py -f *wiki*.bz2 -d "filtered for 100 QIDs; travis-wikiFilter-check" -v -Q ./../Gold\ Standard.txt -t "" 1>"extract100.txt" 2>"exceptions.txt"
@@ -16,4 +15,4 @@ script:
   - cd "./../filtered for 100 QIDs"
   - mkdir "filtered titles and formulae; travis all bz2-files"
   - python2.7 find_most_common_formula.py -Q "./../../Gold Standard.txt" -vv -d "filtered titles and formulae; travis-using-all-bz2-files" 1>"terminal output; all bz2-files.txt" 2>"exceptions; all bz2-files.txt"
-  - cat "terminal output; all bz2-files.txt" | grep "Number of titles with different formulae" -A 4 | grep ".*" --color="always"
+  - cat "terminal output; all bz2-files.txt"
