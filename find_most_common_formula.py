@@ -5,6 +5,7 @@ import argparse
 import re
 import urllib2
 from HTMLParser import HTMLParser
+from collections import OrderedDict
 
 title_in_other_languages = {}
 list_of_title_in_other_languages = []
@@ -231,6 +232,16 @@ def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, 
     Returns formulae_dict - mapping each tuple (QID and formula) to number-of-occurences-of-formula.'''
 
     formulae_dict = {} #mapping the tuple (QID, formula) to the number of occurrences across different sites
+    '''formulae_dict = collections.OrderedDict() #ordered => first inserted formula is more important (insertion order is important when two formulae have the same number of occurences, e.g. when there is only one language). But: the first formula isn't necessary better, if we don't take it from a "good" language, where there is probably(?) a higher chance of the first formula being the correct one. This is why we choose English below.
+
+    #use English first (iff it is a result-file):  #the following part was not yet tested
+    for i, f_name in enumerate(result_files):
+        language = f_name.split("wiki")[0]
+        if language == "en":
+            result_files[i] = result_files[0]
+            result_files[0] = f_name
+            break'''
+
     tags = args_tags.split(',')
 
     current_formula = ""
@@ -255,6 +266,10 @@ def get_formulae_dict(QID_and_lang_to_title, result_files, args_tags, args_dir, 
                         found_QIDs.append(QID)
                         if args_verbosity_level > 1:
                             print("Found title for formula_dict: ", QID, lang, title)
+
+                #check if decoding went well
+                if current_QID == None:
+                    print("ERROR! Didn't find QID for title " + current_title + " in language " + language)
 
             elif (line == "\n") and (current_formula == ""): #no formula was found in the Wikipedia article, because there either is no defining formula or it did not have a formula_indicator
                 #add empty formula to dict
@@ -546,7 +561,8 @@ def formulae_are_similar(gs_formula, i_formula):
 def compare_files(input_file, gold_standard_file):
     '''Compares titles(or QIDs) & formulae from the two input files. Prints formulae from gold_standard_file that are missing in input_file.
     Also prints all formulae (that share the same title) that are different in the two files, if "-v" is used.
-    Supports file-formats bz2 and txt.'''
+    Supports file-formats bz2 and txt.
+    Saves "FP"/"TP"/"FN"/"TN" together with the formulae from input_file in evaluated_results.txt'''
 
     num_of_titles = {}
     num_of_titles[input_file] = 0
@@ -561,6 +577,7 @@ def compare_files(input_file, gold_standard_file):
     similar_formulae = {} #maps titles to correct(Gold Standard) & similar-but-not-exactly-the-same(input_file) formulae
     gs_dict = {} #maps titles to formulae from gold_standard_file
     i_dict = {} #maps titles to formulae from input_file
+    FP_TP_FN_TN_similar_dict = {} #maps title to "FP"/"TP"/"FN"/"TN"/"similar"
 
     #add title and formula to dict
     for filename in [input_file, gold_standard_file]:
@@ -592,20 +609,20 @@ def compare_files(input_file, gold_standard_file):
                 if re.search(r'(.*)</title>', title) != None:
                     title = re.search(r'(.*)[\ ]*</title>[\ ]*', title).group(1)
                 num_of_titles[filename] += 1
-            elif (file_contains_titles == False) and (re.search(r'^Q[1-9][0-9]*[\ ]*[0-9]*[\ ]*$', line) != None): #line contains QID, e.g. Q1234
-                title = re.search(r'^(Q[1-9][0-9]*)[\ ]*[0-9]*[\ ]*$', line).group(1)
+            elif (file_contains_titles == False) and (re.search(r'^Q[1-9][0-9]*[\ ]*.*$', line) != None): #line contains QID, e.g. Q1234
+                title = re.search(r'^(Q[1-9][0-9]*)[\ ]*.*$', line).group(1)
             else: #line with formula
                 formula = line
                 #add title & formula to respective dict
                 if filename == input_file:
                     if i_dict.get(title) == None: #key not found
                         i_dict[title] = formula.replace("\n", "")
-                    else:
+                    else: #key already exists, because the formula spans multiple lines
                         i_dict[title] += formula.replace("\n", "") #append formula to dict, since the formula spans multiple lines
                 else: #filename == gold_standard_file
                     if gs_dict.get(title) == None: #key not found
                         gs_dict[title] = formula.replace("\n", "")
-                    else: #key already exists, because the formula spans multiple lines
+                    else:
                         gs_dict[title] += formula.replace("\n", "") #append formula to dict, since the formula spans multiple lines
         file.close()
 
@@ -619,10 +636,13 @@ def compare_files(input_file, gold_standard_file):
                     if gs_formula == i_formula:
                         if gs_formula == "":
                             TN += 1
+                            FP_TP_FN_TN_similar_dict[gs_title] = "TN"
                         else:
                             TP += 1
+                            FP_TP_FN_TN_similar_dict[gs_title] = "TP"
                     elif formulae_are_similar(gs_formula, i_formula):
                         similar_formulae[gs_title] = [gs_formula, i_formula]
+                        FP_TP_FN_TN_similar_dict[gs_title] = "similar"
                     else:
                         different_formulae[gs_title] = [gs_formula, i_formula]
                 elif num_of_title_matches > 1:
@@ -633,7 +653,7 @@ def compare_files(input_file, gold_standard_file):
 
     #error handling
     if num_of_titles[gold_standard_file] - num_of_titles[input_file] < len(missing_titles):
-        print("ERROR! Number of found titles doesn't match. Some of the titles of input_file don't match with those from gold_standard_file, probably because of special characters that have been changed for regex search( '-' to '.' etc) or because the the wikipedia titles changed. It can also be that the last line(formula) of input_file.txt is empty(=no formula found) - in that case add another empty line at the end! This needs to be fixed manually in the gold_standard_file. \n Another (unlikely) cause might be a duplicated title in the input_file. \n It could also be that you mixed up the input file with the gold standard file.")
+        print("ERROR! Number of found titles doesn't match. Some of the titles of input_file don't match with those from gold_standard_file, maybe because the the wikipedia titles changed. It can also be that the last line(formula) of input_file.txt is empty(=no formula found) - in that case add another empty line at the end! This needs to be fixed manually in the gold_standard_file. \n Another (unlikely) cause might be a duplicated title in the input_file. \n It could also be that you mixed up the input file with the gold standard file.")
         print("num_of_titles[gold_standard_file]", num_of_titles[gold_standard_file])
         print("num_of_titles[input_file]", num_of_titles[input_file])
         print("len(missing_titles)", len(missing_titles))
@@ -655,8 +675,10 @@ def compare_files(input_file, gold_standard_file):
         for title in different_formulae.keys():
             if (different_formulae[title][0] != "") and (different_formulae[title][1] == ""):
                 FN += 1
+                FP_TP_FN_TN_similar_dict[title] = "FN"
             else: #there either is no defining formula or the wrong formula was found
                 FP += 1
+                FP_TP_FN_TN_similar_dict[title] = "FP"
             if args.verbosity_level > 1:
                 print(title + " has two different formulae:\n   " + '"' + different_formulae[title][0] + '"'  + " in Gold Standard,"+ "\n   " + '"' + different_formulae[title][1] + '"'  + " in input file.")
         print("")
@@ -666,7 +688,62 @@ def compare_files(input_file, gold_standard_file):
     print("Number of TN = " + str(TN))
     print(str(len(missing_titles)) + " missing titles: " + str(missing_titles))
 
-if __name__ == '__main__':  # When the script is self run
+    #add "FP"/"TP"/"FN"/"TN"/"similar" to the formulae in input_file and save this in evaluated_results.txt
+    with open(input_file, "r") as file:
+        output_string = ""
+        line = None
+        while line != '':   #EOF is an empty string
+            line = file.readline()
+            if re.search(r'^(Q[1-9][0-9]*)( .*)', line) != None:
+                QID, rest_of_line = re.search(r'^(Q[1-9][0-9]*)( .*)', line).groups()
+                output_string += QID + rest_of_line + " " + FP_TP_FN_TN_similar_dict[QID] + "\n"
+                FP_TP_FN_TN_similar_dict[QID] += " " + re.search(r'(score=[0-9]*)', rest_of_line).group(1)
+            else:
+                output_string += line
+    with open("evaluated_results.txt", "w+") as file:
+        file.write(output_string)
+
+    #compute relationship between TP/TN/FP/FN/similar and score
+    FP_dict = {} #maps score to number of FP-articles
+    FN_dict = {}
+    TP_dict = {}
+    TN_dict = {}
+    similar_dict = {}
+    for rest_of_line in FP_TP_FN_TN_similar_dict.values():
+        score = int(re.search(r'score=([0-9]*)', rest_of_line).group(1))
+        if re.search(r'FP', rest_of_line) != None:
+            if FP_dict.get(score) == None:
+                FP_dict[score] = 1
+            else:
+                FP_dict[score] += 1
+        elif re.search(r'TP', rest_of_line) != None:
+            if TP_dict.get(score) == None:
+                TP_dict[score] = 1
+            else:
+                TP_dict[score] += 1
+        elif re.search(r'TN', rest_of_line) != None:
+            if TN_dict.get(score) == None:
+                TN_dict[score] = 1
+            else:
+                TN_dict[score] += 1
+        elif re.search(r'FN', rest_of_line) != None:
+            if FN_dict.get(score) == None:
+                FN_dict[score] = 1
+            else:
+                FN_dict[score] += 1
+        elif re.search(r'similar', rest_of_line) != None:
+            if similar_dict.get(score) == None:
+                similar_dict[score] = 1
+            else:
+                similar_dict[score] += 1
+    print("\nTP:      " + str(OrderedDict(sorted(TP_dict.items(), key=lambda i: i[0])))) #sorts by score
+    print("Similar: " + str(OrderedDict(sorted(similar_dict.items(), key=lambda i: i[0]))))
+    print("TN:      " + str(OrderedDict(sorted(TN_dict.items(), key=lambda i: i[0]))))
+    print("FP:      " + str(OrderedDict(sorted(FP_dict.items(), key=lambda i: i[0]))))
+    print("FN:      " + str(OrderedDict(sorted(FN_dict.items(), key=lambda i: i[0]))))
+
+
+if __name__ == '__main__':  #the script is self run
     parser = argparse.ArgumentParser(description='Extract all formulae (defined as having a formula_indicator) from the wikipages that contain the titles corresponding to the given QIDs(loaded via "-Q"), in all specified languages(corresponding to the beginning of the bz2-filenames, e.g. "enwiki....bz2"). Afterwards extracts the most common formula for a wikipedia page (in all languages specified). Formulae occuring multiple times for a wikipedia page(in a single language) are counted only once!',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-f', '--filename', help='The bz2-file(s) to be filtered. Default: Use all bz2-files in current folder.',
@@ -681,7 +758,7 @@ if __name__ == '__main__':  # When the script is self run
         default='math,ce,chem,math chem', type=str, dest='tags')
     parser.add_argument("-v", "--verbosity", action="count", default=0, dest='verbosity_level')
     parser.add_argument('-T', '--template', help='include all templates',
-        action="store_true", dest='template')#default=False
+        action="store_true", dest='template')   #default=False
 
     args = parser.parse_args()
 
@@ -718,10 +795,10 @@ if __name__ == '__main__':  # When the script is self run
     result_files, result_languages = get_ofiles_and_lang(args.dir)
     print("Checking " + str(len(result_files)) + " files for similar formulae: " + str(result_files))
     #calculate QID_and_lang_to_title again, in case we are reusing results
-    if languages.sort() != result_languages.sort():
+    if sorted(languages) != sorted(result_languages):
         QID_and_lang_to_title = get_QID_and_lang_to_title(QIDs, result_languages) #has to be called again in case we reused results <=> not all languages are already included in QID_and_lang_to_title
         if args.verbosity_level > 0:
-            print("\nQID_and_lang_to_title (len=" + len(QID_and_lang_to_title) + ") to be checked for most common formula:")
+            print("\nQID_and_lang_to_title (len=" + str(len(QID_and_lang_to_title)) + ") to be checked for most common formula:")
             print(QID_and_lang_to_title)
             print("\n")
 
@@ -735,11 +812,11 @@ if __name__ == '__main__':  # When the script is self run
 
     #find biggest number of occurrences for each QID
     print("Now checking for most common formula...")
-    most_common_formula_for_QID = {} #mappes QIDs to (formula, num_of_occ), where num_of_occ is the number of occurrences for the formula that occurrs the most
+    most_common_formula_for_QID = {} #mappes QIDs to (formula, num_of_occ), where num_of_occ is the number of occurrences for the formula that occurs the most
     for (QID, formula), occ in formulae_dict.items():
         if most_common_formula_for_QID.get(QID) == None: #first formula for a QID will always be added
             most_common_formula_for_QID[QID] = (formula, occ)
-        elif most_common_formula_for_QID[QID][1] < occ: #found a formula that occurrs more often
+        elif most_common_formula_for_QID[QID][1] < occ: #found a formula that occurs more often
             most_common_formula_for_QID[QID] = (formula, occ)
     if args.verbosity_level > 0:
         print("Most common formulae (QID, formula, #occurences):")
@@ -749,9 +826,12 @@ if __name__ == '__main__':  # When the script is self run
     with open("results.txt", "w") as file:
         output_string = ""
         for QID in most_common_formula_for_QID.keys():
-            output_string += QID + " " + str(most_common_formula_for_QID[QID][1]) + "\n"
+            output_string += QID + " score=" + str(most_common_formula_for_QID[QID][1]) + "\n"
             output_string += most_common_formula_for_QID[QID][0] + "\n"
         file.write(output_string)
 
-    #evaluate results for TP, FP, FN, TN
+    #evaluate results for TP, FP, FN, TN    &    add "FP"/"TP"/"FN"/"TN"/"similar" to the formulae from results.txt -> save this in evaluated_results.txt
     compare_files("results.txt", args.QID_file)
+
+
+#todo: program only uses ~5% of CPU. But since it is still fast, it might not be worth the time speeding the program up, especially if you often reuse results
