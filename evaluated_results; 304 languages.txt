@@ -1,0 +1,214 @@
+Q204819 score=11 FP
+e^{ix} = \cos x + i \sin x \,\!
+Q2345603 score=3 FP
+x^5 = x^2 + x + 1\;
+Q4923900 score=1 FP
+p_{t+1}(\hat{x}|x) = \frac{p_t(\hat{x}) \exp(-\beta d(x,\hat{x}))}{\sum_{\hat{x}} p_t(\hat{x}) \exp(-\beta d(x,\hat{x}))}
+Q21948731 score=4 FP
+\mathbf{W}_2 = \sigma(\mathbf{W}_1 \mathbf{X})^+ \mathbf{Y}
+Q7048497 score=2 FP
+q=e^{{2\rm{i}} \pi z}
+Q631222 score=7 FP
+n=n_0+n_1
+Q2520550 score=5 TP
+\dot{x} = Ax + Bu
+Q18378333 score=1 FP
+\chi^{(2)}_{(1,1)}=\chi^{(1)}_{(1)}
+Q1428692 score=2 FP
+\ Q(h) = \frac{1} {n} * \frac{{A(h)}^{5/3}} {{P(h)}^{2/3}}  * S^{1/2}
+Q13424600 score=1 TP
+V = Z I\,
+Q190899 score=6 TP
+n^3 - (n-1)^3 = 3n(n-1)+1.\,
+Q2074917 score=8 FN
+
+Q594135 score=8 TP
+x=A\sin(at+\delta),\quad y=B\sin(bt),
+Q2308311 score=1 FP
+x_A=\sum_{k\in A}2^{-k}.
+Q901009 score=1 FP
+
+\rho^{\operatorname{ion}}(\mathbf{r})=\sum_{i}z_i e \, n_i(\mathbf{r})
+
+Q7302397 score=5 TP
+v = H_0 D\ 
+Q3705517 score=3 FP
+n = \frac{A}{{4\over 3} \pi R^3}
+Q3424036 score=2 FP
+\begin{align}
+            L_1 &amp;= \ln\left(R_1\right),\; L_2 = \ln\left(R_2\right),\; L_3 = \ln\left(R_3\right) \\
+            Y_1 &amp;= \frac{1}{T_1},\; Y_2 = \frac{1}{T_2},\; Y_3 = \frac{1}{T_3} \\
+       \gamma_2 &amp;= \frac{Y_2 - Y_1}{L_2 - L_1},\; \gamma_3 = \frac{Y_3 - Y_1}{L_3 - L_1} \\
+  \Rightarrow C &amp;= \left( \frac{ \gamma_3 - \gamma_2 }{ L_3 - L_2} \right) \left(L_1 + L_2 + L_3\right)^{-1} \\
+  \Rightarrow B &amp;= \gamma_2 - C \left(L_1^2 + L_1 L_2 + L_2^2\right) \\
+  \Rightarrow A &amp;= Y_1 - \left(B + L_1^2 C\right) L_1
+\end{align}
+Q1054475 score=6 FP
+f(x) = a e^{- { \frac{(x-b)^2 }{ 2 c^2} } }
+Q221425 score=17 FN
+
+Q2418717 score=9 FN
+
+Q604572 score=7 TP
+\left[ \frac{1}{2m}(\boldsymbol{\sigma}\cdot(\mathbf{p} - q \mathbf{A}))^2 + q \phi \right] |\psi\rangle = i \hbar \frac{\partial}{\partial t} |\psi\rangle  
+Q3825524 score=1 FP
+R_\mathrm{O}(x)^2 - R_\mathrm{I}(x)^2 \not\equiv \left(R_\mathrm{O}(x) - R_\mathrm{I}(x)\right)^2
+Q2755024 score=7 FP
+ f(x,\boldsymbol\beta)= \frac{\beta_1 x}{\beta_2 + x} 
+Q1493952 score=2 FP
+f^*=g^*: H^j(Y,A)\to H^j(X,A).
+Q7160160 score=2 TP
+e_v = m_v g_v r \ln \left ({S \over r} \right )
+Q16981474 score=1 FP
+A=S(V)
+Q7598325 score=1 FP
+K = 100(W/L^3)\!\,
+Q1419948 score=3 FP
+
+\mathrm{E_1}(z)=\frac{\exp(-z)}{z}\sum_{n=0}^{N-1} \frac{n!}{(-z)^n}
+
+Q1053879 score=18 FN
+
+Q3097928 score=2 FP
+n \cdot (\nabla\times\mathbf{u}) = 0
+Q1050272 score=4 TP
+z = {x- \mu \over \sigma}
+Q2033951 score=11 FN
+
+Q25038417 score=1 TP
+ P = {m g h \over t} 
+Q1147161 score=2 FP
+x_0^2-x_1^2-\cdots-x_n^2 = r^2,\quad x_0&gt;0.
+Q540129 score=11 TN
+
+Q1149185 score=5 FP
+ \mathcal{G}(n) = H_{R_2^\omega(n+1)}(1) - 1, 
+Q5384725 score=1 FP
+kT_0 = 4.00 \times 10^{-21}\,[Ws]
+Q623738 score=4 FN
+
+Q4402528 score=2 FP
+K_n\left(x,z\right) = \int\int\cdots\int K\left(x,y_1\right)K\left(y_1,y_2\right) \cdots K\left(y_{n-1}, z\right) dy_1 dy_2 \cdots dy_{n-1}
+Q3077625 score=1 FP
+\mathrm{d} U_\text{ext} = - P \, \mathrm{d} V_\text{ext} + T \, \mathrm{d} S_\text{ext}
+Q881473 score=2 FP
+ S(x,y)=\left( \frac{\log_2{S_1}+\log_2{S_2}}{2}, \log_2{S_1}-\log_2{S_2} \right). 
+Q25342 score=14 FN
+
+Q7857491 score=1 FP
+\lim_{k \to \infty}r(k)/k^{-d} = (2-d)(1-d)/2.
+Q2388902 score=1 FP
+
+\dot{\epsilon_{GS}} \propto \frac{\Omega}{kT}\frac{\delta'D_{GB}}{d^3}(\sigma-\frac{0.72\gamma}{d})
+
+Q567383 score=2 FN
+
+Q1304927 score=2 FP
+A=2\pi rh\,.
+Q7256544 score=1 FP
+   \gamma = 
+Q75794 score=19 FN
+
+Q6268406 score=2 TP
+z=\gamma+\delta \sinh^{-1} \left(\frac{x-\xi}{\lambda}\right)
+Q3085841 score=5 TP
+D = \frac{2|E|}{|V|\,(|V|-1)}
+Q5753111 score=1 FP
+\gamma=1+\frac{lnM}{ln(M-1)} 
+Q230913 score=1 FP
+p = p_0 \cdot \left( 1 - \Gamma \cdot \eta \right) + \frac{\rho_0 \cdot C^2_0 \cdot \eta}{\left( 1 - s \cdot \eta \right)^2} \cdot \left( 1 - \frac{\Gamma \cdot \eta}{2} \right) + \Gamma \cdot \rho_0 \cdot \left( e - e_0 \right)
+Q1065144 score=6 TN
+
+Q253164 score=4 FN
+
+Q5277083 score=1 FP
+\lambda=0
+Q5519411 score=2 FP
+ I = \frac{U}{R_x + R_{load}} 
+Q5419508 score=1 FN
+
+Q3044461 score=3 FP
+i=0,1,\ldots,n
+Q5657840 score=1 FP
+\chi_\lambda=\chi_\mu
+Q3505260 score=2 FP
+\phi=\frac{1+\sqrt 5}{2}
+Q20706974 score=1 TP
+m = \pi \frac{D}{d}.
+Q25313226 score=1 FP
+\textstyle r(t,\rho) = \sqrt{(1 + a^2) \rho^2 + a^2 c^2 t^2}
+Q1089578 score=2 FP
+\mathcal{G}=(V, E, C)
+Q24906027 score=1 FP
+ S^* = \sum_{n \ge 0} S^n 
+Q7269450 score=2 FP
+F_n(T^{1/n}) = e^{2\pi i/n} T^{1/n}.
+Q336787 score=5 TP
+F(x) = \sum^{\infty}_{n=0}f_nx^n
+Q4697635 score=2 TP
+ v = {V / \Delta t \over {A}} 
+Q5527846 score=1 FP
+(a+b)_q^n=\prod_{i=0}^{n-1}(a+q^ib) .
+Q5485355 score=3 FP
+\frac{q}{A} = h_o(T_o - T_s)
+Q4940113 score=2 FP
+Area = \pi r^2 \approx 3{.}1416 \cdot r^2. 
+Q12346869 score=3 TP
+\mathbf{v} = \frac{d\mathbf{x}}{dt} = g(t),
+Q658654 score=9 FN
+
+Q2780405 score=3 similar
+(x^2 + y^2)^2 = ax^2y.\,
+Q77313 score=13 TN
+
+Q2226962 score=4 FP
+f(z) = \frac{1}{g(z)} + b
+Q900855 score=3 FP
+ D = \mu \, k_B T 
+Q1144385 score=13 TN
+
+Q17096631 score=1 FP
+\phi_2={(1.7-1) \over -0.0747\ \mathrm{m}}=-9.37\ \mathrm{dpt}
+Q5186734 score=2 FP
+r_{i} = E_g = \frac{k M m}{eV_{ion}} = 6.9\cdot 10^{-20}M \frac{m'}{V_{ion}} = 13.5\cdot 10^{13} \frac{m'}{V_{ion}} cm
+Q1816932 score=4 FP
+ I_R \le RM_R\int_0^\pi e^{-aR\sin\theta}\,d\theta = 2RM_R\int_0^{\pi/2} e^{-aR\sin\theta}\,d\theta\,.
+Q16963694 score=2 TP
+ A(x) = \sum_{i=1}^n p_i E_{l_i}(x)
+Q1779479 score=2 FP
+ p(t) = \alpha (t-t_0)^2 + \beta (t-t_0) + \gamma \, 
+Q12354166 score=2 FP
+ E_F^n=m_n c^2 \,
+Q17105180 score=1 FP
+y_1 + \frac{\left(\frac{Q}{b_1}\right)^2}{2gy_1^2} = \frac{3}{2}y_c
+Q1455717 score=6 TP
+F = \frac{a^{2}}{L \lambda}
+Q907926 score=5 TN
+
+Q3150682 score=5 FN
+
+Q12912288 score=4 FN
+
+Q6696419 score=1 TP
+P(i) = \frac{w_i}{\sum_j{w_j}}
+Q918398 score=4 FN
+
+Q2835831 score=4 FP
+m = \sum_{i=1}^n a_i
+Q6497088 score=1 FP
+G = \mathrm G(\mathbb A)
+Q5927001 score=3 TP
+I(R) = \frac{I_0}{(1+R/R_H)^2}
+Q1499538 score=7 FN
+
+Q4232155 score=2 FP
+\rho-\tau=0
+Q1701125 score=3 FP
+\left(\sum_i a_iX^i\right) \cdot \left(\sum_j b_jX^j\right) = 
+\sum_k \left(\sum_{i,j: i + j = k} a_i b_j\right)X^k.
+Q5955459 score=1 FP
+\sigma_h = \rho_w g h_w =1000 \,\text{kg m}^{-3} \cdot 9.8 \,\text{m s}^{-2} \cdot 10 \,\text{m} =9.8 \cdot {10^4} \text{ kg m}^{-1} \text{s}^{-2} =9.8 \cdot 10^4 \text{ N m}^{-2} 
+Q15402047 score=2 FP
+P(n) = \sum_{d\mid n} d \varphi(n/d)
+Q2152569 score=4 FP
+a_n=1
