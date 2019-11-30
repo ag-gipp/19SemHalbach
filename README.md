@@ -1,8 +1,9 @@
-# most-common-formula-across-wikipedia-languages
-Research task: Find most common formulae across Wikipedia pages that are available in different languages.
+# Cross-language mathematical formulae in Wikipedia
 
-Goal: Extract defining formula from Wikipedia pages more often than by extracting the first formula on a Wikipedia page.
+* *Research task*: Find shared formulae across Wikipedia pages that are available in different languages.
+* *Goal*: Extract defining formula from Wikipedia pages more often than by extracting the first formula on a Wikipedia page.
 
+## Obtain and filter Wikipedias fulltext
 
 Use "wikiFilter.py" to filter wikidumps of different languages for all pages that contain a tag (e.g. math-tag), results are found in "Dumps filtered for tags". Those can then be further filtered via "wikiFilter.py" for pages belonging to certain QIDs (given via --QID_file, use "Gold Standard.txt"), found in "Dumps filtered for tags/filtered 100 QIDs".
 Use "wikiFilter.py" as follows:
